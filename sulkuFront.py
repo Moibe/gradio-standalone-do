@@ -4,6 +4,7 @@ import sulkuPypi
 import gradio as gr
 import threading
 import tools
+import fireWhale
 
 # import modulo_correspondiente
 mensajes, sulkuMessages = tools.get_mensajes(globales.mensajes_lang)
@@ -16,12 +17,13 @@ def displayTokens(request: gr.Request):
     global result_from_displayTokens
 
     print("El usuario supuestamente es: ", request.username)
-
-    novelty = sulkuPypi.getNovelty(sulkuPypi.encripta(request.username).decode("utf-8"), globales.aplicacion)    
+    novelty = fireWhale.obtenDato('usuarios', request.username, 'novelty' )
+    #novelty = sulkuPypi.getNovelty(sulkuPypi.encripta(request.username).decode("utf-8"), globales.aplicacion)    
     if novelty == "new_user": 
         display = gr.Textbox(visible=False)
     else: 
-        tokens = sulkuPypi.getTokens(sulkuPypi.encripta(request.username).decode("utf-8"), globales.env)
+        tokens = fireWhale.obtenDato('usuarios', request.username, 'tokens')
+        #tokens = sulkuPypi.getTokens(sulkuPypi.encripta(request.username).decode("utf-8"), globales.env)
         display = visualizar_creditos(tokens, request.username) 
     
     result_from_displayTokens = display 
