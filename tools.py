@@ -15,7 +15,6 @@ def theme_selector():
         gr.themes.Soft()
     ]
     tema = random.choice(temas_posibles)
-    print("Tema random: ", tema)
     return tema
 
 def eligeAPI(opcion):
@@ -27,7 +26,6 @@ def eligeAPI(opcion):
     }
     
     if opcion in funciones:
-        print("Opción en Funciones")
         funcion_elegida = funciones[opcion]
         api, tipo_api = funcion_elegida()
     else:
@@ -42,7 +40,6 @@ def eligeGratisOCosto():
 #Por ahora funcionará exactamente igual que eligeAoB, en el futuro se basará en reglas de membresía.
     apis = [globales.api_a, globales.api_b]
     api_elegida = random.choice(apis)
-    print("Print api elegida: ", api_elegida)
     api, tipo_api = api_elegida
     return api, tipo_api
 
@@ -51,7 +48,6 @@ def eligeAOB():
     # Lista con las opciones
     apis = [globales.api_a, globales.api_b]
     api_elegida = random.choice(apis)
-    print("Print api elegida: ", api_elegida)
     api, tipo_api = api_elegida
     return api, tipo_api
 

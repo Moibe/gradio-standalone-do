@@ -15,6 +15,8 @@ def displayTokens(request: gr.Request):
     
     global result_from_displayTokens
 
+    print("El usuario supuestamente es: ", request.username)
+
     novelty = sulkuPypi.getNovelty(sulkuPypi.encripta(request.username).decode("utf-8"), globales.aplicacion)    
     if novelty == "new_user": 
         display = gr.Textbox(visible=False)
