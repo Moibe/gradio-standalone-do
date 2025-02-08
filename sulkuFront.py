@@ -100,11 +100,17 @@ def presentacionFinal(usuario, accion):
     capsule = sulkuPypi.encripta(usuario).decode("utf-8") #decode es para quitarle el 'b
     
     if accion == "debita":        
-        tokens = sulkuPypi.debitTokens(capsule, globales.work, globales.env)
+        #tokens = sulkuPypi.debitTokens(capsule, globales.work, globales.env)
+        tokens = fireWhale.obtenDato('usuarios', usuario, 'tokens') #obtienes
+        print(f"Antes de debitar tienes {tokens} tokens.")
+        tokens = tokens - globales.costo_work #debitas
+        fireWhale.editaDato('usuarios', usuario, 'tokens', tokens) #editas
+        print(f"Después de debitar tienes {tokens} tokens.")
         info_window = sulkuMessages.result_ok       
     else: 
         info_window = "No face in source path detected."
-        tokens = sulkuPypi.getTokens(capsule, globales.env)
+        #tokens = sulkuPypi.getTokens(capsule, globales.env)
+        tokens = fireWhale.obtenDato('usuarios', usuario, 'tokens') #obtienes
     
     html_credits = visualizar_creditos(tokens, usuario)       
     

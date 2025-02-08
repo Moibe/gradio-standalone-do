@@ -1,7 +1,7 @@
 import gradio as gr
 
 #MAIN
-version = "6.10.14"
+version = "6.11.14"
 env = "dev"
 aplicacion = "astroblend-dev"
 
@@ -21,7 +21,8 @@ interface_api_name = "/predict" #El endpoint al que llamará client.
 
 process_cost = 0
 seto = "image-blend"
-work = "picswap"
+work = "picswap" #Se dejará de usar, pero en el futuro se reutilizará cuando en base definamos diferentes tareas a diferentes costos.
+costo_work = 1 #Se integró costo_work para definir aquí directamente lo que cueta picswap, y dejar de usar la var work.
 app_path = "/boilerplate"
 server_port=7860
 #tema = tools.theme_selector()

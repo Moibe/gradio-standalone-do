@@ -1,11 +1,12 @@
+import time
+import tools
 import bridges
 import globales
 import sulkuPypi
 import sulkuFront
 import gradio as gr
 import gradio_client
-import time
-import tools
+import fireWhale
 
 mensajes, sulkuMessages = tools.get_mensajes(globales.mensajes_lang)
 
@@ -17,11 +18,15 @@ def perform(input1, input2, request: gr.Request):
     #Future: Maneja una excepción para el concurrent.futures._base.CancelledError
     #Future: Que no se vea el resultado anterior al cargar el nuevo resultado! (aunque solo se ven los resultados propios.)         
 
-    tokens = sulkuPypi.getTokens(sulkuPypi.encripta(request.username).decode("utf-8"), globales.env)
-    
+    #tokens = sulkuPypi.getTokens(sulkuPypi.encripta(request.username).decode("utf-8"), globales.env)
+    tokens = fireWhale.obtenDato('usuarios', request.username, 'tokens')
+
     #1: Reglas sobre autorización si se tiene el crédito suficiente.
+    #Básicamente consiste en preguntar si tiene suficientes tokens para ejecutar la tarea.
     autorizacion = sulkuPypi.authorize(tokens, globales.work)
-    if autorizacion is True:
+    #if autorizacion is True: #La autorización ya no se gestionará llendo a un api, se definirá en globales. 
+    #Quizá en el futuro cuando diferentes tareas tengan diferentes costos use api, o vaya directo a firebase.
+    if tokens >= globales.costo_work:    
         try: 
             resultado = mass(input1, input2)
         except Exception as e:

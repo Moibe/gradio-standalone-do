@@ -10,18 +10,27 @@ db = firestore.client()
 
 def obtenDato(coleccion, dato, info):
     #Colección es la base donde está, dato es el índice con el que buscaremos e info es el resultado que estamos buscando. 
-
-    print("Si ent´re a firewhale...")
-    print("Y ésto es usuario: ", dato)
-    print("Y su tipo es: ", type(dato))
-   
+    
+    #Future: Tentativamente ésta parte podría solo hacerse una vez y vivir en la app para ser reutilizado.
+    ###
     #Primero debemos definir la referencia al documento, o sea a la hoja de usuario.
     doc_ref = db.collection(coleccion).document(dato)
     #Éste es el documento que tiene los datos de ella.
     documento = doc_ref.get()
+    ###
 
     #Recuerda la conversión a diccionario.
     diccionario = documento.to_dict()
 
     return diccionario.get(info)
+
+def editaDato(coleccion, dato, info, contenido):
+
+    #Primero debemos definir la referencia al documento, o sea a la hoja de usuario.
+    doc_ref = db.collection(coleccion).document(dato)
+    
+    doc_ref.update({
+        # 'quote': quote,
+        info: contenido,
+    })
 
