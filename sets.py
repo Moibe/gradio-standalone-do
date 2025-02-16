@@ -7,9 +7,9 @@ mensajes, sulkuMessages = tools.get_mensajes(globales.mensajes_lang)
 # Diccionario para mapear los sets a sus respectivas configuraciones
 configuraciones = {
     "image-blend": {
-        "input1": gr.Image(label=mensajes.label_input1, type="filepath"),
-        "input2": gr.Image(label=mensajes.label_input2, type="filepath"),
-        "result": gr.Image(label=mensajes.label_resultado),
+        "input1": gr.Image(label=mensajes.label_input1, type="filepath", elem_classes="container1 animate__animated"),
+        "input2": gr.Image(label=mensajes.label_input2, type="filepath", elem_classes="container1 animate__animated"),
+        "result": gr.Image(label=mensajes.label_resultado, elem_classes="container1 animate__animated"),
     },
     "video-blend": {
         "input1": gr.Image(label=mensajes.label_input1, type="filepath"),

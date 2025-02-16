@@ -96,8 +96,9 @@ def manejadorExcepciones(excepcion):
     return info_window
 
 def presentacionFinal(usuario, accion):
-        
-    capsule = sulkuPypi.encripta(usuario).decode("utf-8") #decode es para quitarle el 'b
+    
+    #Se quitó con el cambio hacia fireWhale.
+    #capsule = sulkuPypi.encripta(usuario).decode("utf-8") #decode es para quitarle el 'b
     
     if accion == "debita":        
         #tokens = sulkuPypi.debitTokens(capsule, globales.work, globales.env)

@@ -23,7 +23,7 @@ def perform(input1, input2, request: gr.Request):
 
     #1: Reglas sobre autorización si se tiene el crédito suficiente.
     #Básicamente consiste en preguntar si tiene suficientes tokens para ejecutar la tarea.
-    autorizacion = sulkuPypi.authorize(tokens, globales.work)
+    #autorizacion = sulkuPypi.authorize(tokens, globales.work)
     #if autorizacion is True: #La autorización ya no se gestionará llendo a un api, se definirá en globales. 
     #Quizá en el futuro cuando diferentes tareas tengan diferentes costos use api, o vaya directo a firebase.
     if tokens >= globales.costo_work:    
@@ -45,12 +45,6 @@ def perform(input1, input2, request: gr.Request):
         #Si no es imagen es un texto que nos dice algo.
         info_window, resultado, html_credits = sulkuFront.aError(request.username, tokens, excepcion = tools.titulizaExcepDeAPI(resultado))
         return resultado, info_window, html_credits, btn_buy      
-    
-    # #2: ¿El resultado es debitable?
-    # if debit_rules.debita(resultado) == True:
-    #     html_credits, info_window = sulkuFront.presentacionFinal(request.username, "debita")
-    # else:
-    #     html_credits, info_window = sulkuFront.presentacionFinal(request.username, "no debita") 
             
     #Lo que se le regresa oficialmente al entorno.
     return resultado, info_window, html_credits, btn_buy
@@ -72,8 +66,14 @@ def mass(input1, input2):
                 
         #(Si llega aquí, debes debitar de la quota, incluso si detecto no-face o algo.)
         if tipo_api == "quota":
-            print("Como el tipo api fue gratis, si debitaremos la quota.")
-            sulkuPypi.updateQuota(globales.process_cost)
+            #sulkuPypi.updateQuota(globales.process_cost) #Ahora se usará fireWhale, son más líneas porque la api hacia todo.
+            #Pero si es menos tiempo de proceso hacerlo con Firestore.
+            quota_actual = fireWhale.obtenDato("quota", "quota", "segundos")
+            print("La quota actual que hay es: ", quota_actual)
+            quota_nueva = quota_actual - globales.process_cost
+            print("La quota nueva es: ", quota_nueva)
+            fireWhale.editaDato("quota", "quota", "segundos", quota_nueva)
+
         #No debitas la cuota si no era gratis, solo aplica para Zero.         
         
         #result = splash_tools.desTuplaResultado(result)

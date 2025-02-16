@@ -5,6 +5,7 @@ import funciones
 import sulkuFront
 import autorizador
 import gradio as gr
+import css
 
 def iniciar():    
     app_path = globales.app_path
@@ -18,14 +19,14 @@ def welcome(name):
 #INTERFAZ
 #Credit Related Elements
 html_credits = gr.HTML(visible=True)
-lbl_console = gr.Label(label="AI Terminal " + globales.version +  " messages", container=True)
+lbl_console = gr.Label(label="AI Terminal " + globales.version +  " messages", container=True, elem_classes="container1 animate__animated")
 btn_buy = gr.Button("Get Credits", visible=False, size='lg')
 
 #Customizable Inputs and Outputs
 #Los valores que recibe si debes de agregarlos manualmente para cada app que hagas.
 input1, input2, result = inputs.inputs_selector(globales.seto)
 
-with gr.Blocks(theme=globales.tema, css="footer {visibility: hidden}") as main:   
+with gr.Blocks(theme=globales.tema, css=css.css) as main:   
     #Cargado en Load: Función, input, output
     main.load(sulkuFront.precarga, None, html_credits) 
    
@@ -35,7 +36,7 @@ with gr.Blocks(theme=globales.tema, css="footer {visibility: hidden}") as main:
                 fn=funciones.perform,
                 inputs=[input1, input2], #Agregar inputs manualmente.
                 outputs=[result, lbl_console, html_credits, btn_buy], 
-                flagging_mode=globales.flag            
+                flagging_mode=globales.flag                        
                 )
         except Exception as e:
             print("Interface error...") #Checar si alguna vez entra.

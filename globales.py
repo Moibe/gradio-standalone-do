@@ -1,7 +1,7 @@
 import gradio as gr
 
 #MAIN
-version = "6.11.14"
+version = "6.12.14"
 env = "dev"
 aplicacion = "astroblend-dev"
 
@@ -26,8 +26,8 @@ costo_work = 1 #Se integró costo_work para definir aquí directamente lo que cu
 app_path = "/boilerplate"
 server_port=7860
 #tema = tools.theme_selector()
-tema = gr.themes.Default()
-flag = "auto"
+tema = gr.themes.Base()
+flag = "never"
 
 #Future: Put age to cookies.
 

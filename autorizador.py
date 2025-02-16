@@ -3,10 +3,7 @@ import globales
 import tools
 import fireWhale
 
-def authenticate(username, password):   
-
-    print("Entré al autorizador")
-
+def authenticate(username, password): 
     #(Colección, dato índice, campo buscado.)
     contrasena = fireWhale.obtenDato('usuarios', username, 'password')
 
