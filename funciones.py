@@ -2,11 +2,12 @@ import time
 import tools
 import bridges
 import globales
+import fireWhale
 import sulkuPypi
 import sulkuFront
 import gradio as gr
 import gradio_client
-import fireWhale
+
 
 mensajes, sulkuMessages = tools.get_mensajes(globales.mensajes_lang)
 
@@ -16,10 +17,14 @@ btn_buy = gr.Button("Get Credits", visible=False, size='lg')
 def perform(input1, input2, request: gr.Request):
 
     #Future: Maneja una excepción para el concurrent.futures._base.CancelledError
-    #Future: Que no se vea el resultado anterior al cargar el nuevo resultado! (aunque solo se ven los resultados propios.)         
+    #Future: Que no se vea el resultado anterior al cargar el nuevo resultado! (aunque solo se ven los resultados propios.)  
 
-    #tokens = sulkuPypi.getTokens(sulkuPypi.encripta(request.username).decode("utf-8"), globales.env)
-    tokens = fireWhale.obtenDato('usuarios', request.username, 'tokens')
+    if globales.acceso == "login": 
+        usuario = request.username
+    else:        
+        usuario = globales.usuario         
+
+    tokens = fireWhale.obtenDato('usuarios', usuario, 'tokens')
 
     #1: Reglas sobre autorización si se tiene el crédito suficiente.
     #Básicamente consiste en preguntar si tiene suficientes tokens para ejecutar la tarea.
@@ -31,19 +36,19 @@ def perform(input1, input2, request: gr.Request):
             resultado = mass(input1, input2)
         except Exception as e:
             print("Éste es el except de perform...")            
-            info_window, resultado, html_credits = sulkuFront.aError(request.username, tokens, excepcion = tools.titulizaExcepDeAPI(e))
+            info_window, resultado, html_credits = sulkuFront.aError(usuario, tokens, excepcion = tools.titulizaExcepDeAPI(e))
             return resultado, info_window, html_credits, btn_buy
     else:
-        info_window, resultado, html_credits = sulkuFront.noCredit(request.username)
+        info_window, resultado, html_credits = sulkuFront.noCredit(usuario)
         return resultado, info_window, html_credits, btn_buy    
     
     #Primero revisa si es imagen!: 
     if "result.png" in resultado:
         #Si es imagen, debitarás.
-        html_credits, info_window = sulkuFront.presentacionFinal(request.username, "debita")
+        html_credits, info_window = sulkuFront.presentacionFinal(usuario, "debita")
     else: 
         #Si no es imagen es un texto que nos dice algo.
-        info_window, resultado, html_credits = sulkuFront.aError(request.username, tokens, excepcion = tools.titulizaExcepDeAPI(resultado))
+        info_window, resultado, html_credits = sulkuFront.aError(usuario, tokens, excepcion = tools.titulizaExcepDeAPI(resultado))
         return resultado, info_window, html_credits, btn_buy      
             
     #Lo que se le regresa oficialmente al entorno.
@@ -93,7 +98,7 @@ def mass_zhi(input1, input2):
     #result = client.predict(imagenSource, imagenDestiny, api_name="/predict")
 
     result = client.predict(
-		prompt="A hot girl in sexy cocktail dress.",
+		prompt="A h g in s cocktail dress.",
 		person_img=imagenSource,
 		seed=486992,
 		randomize_seed=False,

@@ -1,5 +1,4 @@
 import globales
-#import sulkuPypi
 import tools
 import fireWhale
 
