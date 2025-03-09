@@ -1,4 +1,4 @@
-result_ok = "Reconocimiento de imagen terminado." #Future que el texto de result ok, sea globales para q se relacione con la app en cuestión.
+result_ok = "Image fusion ready." #Future que el texto de result ok, sea globales para q se relacione con la app en cuestión.
 
 out_of_credits = "Sin créditos..."
 

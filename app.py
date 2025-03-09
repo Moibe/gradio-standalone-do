@@ -20,7 +20,7 @@ def welcome(name):
     
 #INTERFAZ
 #Credit Related Elements
-html_credits = gr.HTML(visible=True)
+html_credits = gr.HTML(visible=globales.credits_visibility)
 lbl_console = gr.Label(label="AI Terminal " + globales.version +  " messages", container=True, elem_classes="container1 animate__animated")
 btn_buy = gr.Button("Get Credits", visible=False, size='lg')
 
@@ -30,6 +30,7 @@ input1, input2, result = inputs.inputs_selector(globales.seto)
 
 with gr.Blocks(theme=globales.tema, css=css.css) as main:   
     #Cargado en Load: Función, input, output
+    #IMPORTANTE FUTURE: La precarga no se debería llevar a cabo si estamos en el modo libre.
     main.load(sulkuFront.precarga, None, html_credits) 
    
     with gr.Row():

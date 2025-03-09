@@ -1,6 +1,6 @@
 import globales 
 
-result_ok = "Reconocimiento de imágen terminado." #Future que el texto de result ok, sea globales para q se relacione con la app en cuestión.
+result_ok = "Fusión de imágen terminada." #Future que el texto de result ok, sea globales para q se relacione con la app en cuestión.
 
 out_of_credits = "Necesitas más créditos, contactame. Moibe."
 

@@ -28,8 +28,6 @@ def perform(input1, input2, request: gr.Request):
 
     #1: Reglas sobre autorización si se tiene el crédito suficiente.
     #Básicamente consiste en preguntar si tiene suficientes tokens para ejecutar la tarea.
-    #autorizacion = sulkuPypi.authorize(tokens, globales.work)
-    #if autorizacion is True: #La autorización ya no se gestionará llendo a un api, se definirá en globales. 
     #Quizá en el futuro cuando diferentes tareas tengan diferentes costos use api, o vaya directo a firebase.
     if tokens >= globales.costo_work:    
         try: 
@@ -44,8 +42,9 @@ def perform(input1, input2, request: gr.Request):
     
     #Primero revisa si es imagen!: 
     if "result.png" in resultado:
-        #Si es imagen, debitarás.
-        html_credits, info_window = sulkuFront.presentacionFinal(usuario, "debita")
+        #Si es imagen, debitarás, pero si está en modo libre, no debitarás.
+        accion = "no-debitar" if globales.acceso == "libre" else "debita"
+        html_credits, info_window = sulkuFront.presentacionFinal(usuario, accion)
     else: 
         #Si no es imagen es un texto que nos dice algo.
         info_window, resultado, html_credits = sulkuFront.aError(usuario, tokens, excepcion = tools.titulizaExcepDeAPI(resultado))
