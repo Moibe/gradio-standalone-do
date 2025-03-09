@@ -11,9 +11,9 @@ def iniciar():
     app_path = globales.app_path
     main.queue(max_size=globales.max_size)
     #Con autorizador
-    #main.launch(auth=autorizador.authenticate, root_path=app_path, server_port=globales.server_port)
+    main.launch(auth=autorizador.authenticate, root_path=app_path, server_port=globales.server_port)
     #Paso directo 
-    main.launch(root_path=app_path, server_port=globales.server_port)
+    #main.launch(root_path=app_path, server_port=globales.server_port)
 
 def welcome(name):
     return f"Welcome to Gradio!"
@@ -30,8 +30,8 @@ input1, input2, result = inputs.inputs_selector(globales.seto)
 
 with gr.Blocks(theme=globales.tema, css=css.css) as main:   
     #Cargado en Load: Función, input, output
-    #IMPORTANTE FUTURE: La precarga no se debería llevar a cabo si estamos en el modo libre.
-    main.load(sulkuFront.precarga, None, html_credits) 
+    #IMPORTANTE La precarga no se ejecuta si estás en modo libre.
+    main.load(sulkuFront.precarga, None, html_credits) if globales.acceso != "libre" else None
    
     with gr.Row():
         try:
