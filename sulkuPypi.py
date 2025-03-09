@@ -34,7 +34,6 @@ def getData(aplicacion):
         return error
 
     print("SULKUPYPI > getData regresa: ", data)
-    time.sleep(5)
     return data
 
 def getNovelty(userfile, aplicacion):
@@ -48,7 +47,6 @@ def getNovelty(userfile, aplicacion):
     if response.status_code == 200:
         novelty = response.json()
         print("SULKUPYPI > getNovelty regresa: ", novelty)
-        time.sleep(5)
         return novelty              
     else:
         error = f"Error al obtener el elemento todo: {response.status_code}"
@@ -68,7 +66,6 @@ def getTokens(userfile, env):
         return error
 
     print("SULKUPYPI > getTokens regresa: ", tokens)
-    time.sleep(5)
     return tokens
 
 def authorize(tokens, work):
@@ -87,7 +84,6 @@ def authorize(tokens, work):
         return error
     
     print("SULKUPYPI > authorize regresa: ", autorizacion)
-    time.sleep(5)
     return autorizacion
 
 def debitTokens(userfile, work, env):
@@ -105,7 +101,6 @@ def debitTokens(userfile, work, env):
         return error
 
     print("SULKUPYPI > debitTokens regresa: ", tokens)
-    time.sleep(5)
     return tokens
 
 def debitTokensQ(userfile, work, env):

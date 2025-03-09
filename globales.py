@@ -1,7 +1,7 @@
 import gradio as gr
 
 #MAIN
-version = "7.13.14"
+version = "7.13.15"
 env = "dev"
 aplicacion = "astroblend-dev"
 

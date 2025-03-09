@@ -3,7 +3,6 @@ import tools
 import bridges
 import globales
 import fireWhale
-import sulkuPypi
 import sulkuFront
 import gradio as gr
 import gradio_client

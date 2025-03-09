@@ -56,7 +56,6 @@ def eligeQuotaOCosto():
     #diferencia = sulkuPypi.getQuota() - globales.process_cost
     diferencia = fireWhale.obtenDato("quota", "quota", "segundos") - globales.process_cost
     print("La diferencia es: ", diferencia)
-    print("Si está sacando la diferencia y es: ", diferencia)
 
     if diferencia >= 0:
         #Entonces puedes usar Zero.
@@ -64,7 +63,6 @@ def eligeQuotaOCosto():
         #Además Si el resultado puede usar la Zero "por última vez", debe de ir prendiendo la otra.
         #if diferencia es menor que el costo de un sig.  del proceso, ve iniciando ya la otra API.
         if diferencia < globales.process_cost:
-            print("Preventivamente iremos prendiendo la otra.")
             initAPI(globales.api_cost) 
     else:
         api, tipo_api = globales.api_cost
